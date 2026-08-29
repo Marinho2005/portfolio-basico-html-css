@@ -16,19 +16,9 @@
 
 ## ✨ Preview
 
-### Desktop — Hero
+![Preview — Victor Marinho Portfólio](./screenshots/screenshot-hero.png)
 
-![Preview Desktop — Hero](./screenshots/screenshot-hero.png)
-
-### Página completa
-
-![Preview Desktop — Full Page](./screenshots/screenshot-desktop.png)
-
-### Mobile
-
-![Preview Mobile](./screenshots/screenshot-mobile.png)
-
-> Imagens geradas automaticamente com Playwright (`1280×800` @2x e `390×844` mobile) a partir do `vite preview`.
+> Captura do hero (`1280×800` @2x) via Playwright a partir do `vite preview`.
 
 ---
 
@@ -52,8 +42,8 @@ portfolio-react/
 │   ├── main.tsx               # bootstrap React
 │   ├── styles.css             # design system (cores, grid, hero, cards)
 │   └── project-icons.css      # ícones dos projetos
-├── screenshots/               # prints gerados para o README
-│   ├── screenshot-hero.png
+├── screenshots/               # prints (README usa apenas screenshot-hero.png)
+│   ├── screenshot-hero.png      # ← usado no README
 │   ├── screenshot-desktop.png
 │   └── screenshot-mobile.png
 ├── index.html
@@ -122,7 +112,7 @@ npm run preview -- --port 4175
 
 # em outro terminal
 node /tmp/screenshot.js
-# gera screenshots/screenshot-{hero,desktop,mobile}.png
+# gera screenshots/screenshot-hero.png (usado no README)
 ```
 
 ## 🔗 Links

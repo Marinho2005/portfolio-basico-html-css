@@ -19,11 +19,6 @@
 
 ![Preview — Victor Marinho Portfólio](./screenshots/screenshot-hero.png)
 
-<p align="center">
-  <a href="./portfolio-react/screenshots/screenshot-desktop.png">Ver página completa</a> •
-  <a href="./portfolio-react/screenshots/screenshot-mobile.png">Ver mobile</a>
-</p>
-
 ---
 
 ## 📁 O que tem aqui
@@ -40,10 +35,10 @@
 │   ├── src/App.tsx        # todas as seções (hero, sobre, habilidades, projetos, contato)
 │   ├── src/styles.css     # design system dark
 │   ├── public/assets/     # assets copiados do projeto HTML
-│   └── screenshots/       # prints usados nos READMEs
+│   └── screenshots/       # prints (apenas hero no README)
 │
-└── screenshots/           # cópia dos prints na raiz (para o README raiz)
-    ├── screenshot-hero.png
+└── screenshots/           # prints (README usa apenas screenshot-hero.png)
+    ├── screenshot-hero.png  # ← usado no README
     ├── screenshot-desktop.png
     └── screenshot-mobile.png
 ```
@@ -101,13 +96,11 @@ python3 -m http.server --directory portfolio_html 8000
 - **Back-end:** Elixir, Ruby, PHP, SQL, APIs
 - **Sistemas & IoT:** Linux, Git, ESP32, Sensores
 
-## 📸 Screenshots
+## 📸 Screenshot
 
-| Desktop — Full | Mobile |
-|---|---|
-| ![Desktop Full](./portfolio-react/screenshots/screenshot-desktop.png) | ![Mobile](./portfolio-react/screenshots/screenshot-mobile.png) |
+![Preview](./screenshots/screenshot-hero.png)
 
-> Gerados com Playwright a partir do `vite preview` (`1280×800` @2x e `390×844`).
+> Hero capturado com Playwright (`1280×800` @2x) a partir do `vite preview`.
 
 ## 👤 Autor
 
