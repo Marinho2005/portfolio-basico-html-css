@@ -1,0 +1,25 @@
+.project-mark {
+  width: 82px;
+  height: 82px;
+  margin: 32px auto 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #303030;
+  border-radius: 50%;
+  color: #f4f4f2;
+}
+
+.project-mark svg {
+  width: 40px;
+  height: 40px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.project-mark .knight {
+  font: 400 50px/1 Georgia, serif;
+  transform: translateY(-2px);
+}

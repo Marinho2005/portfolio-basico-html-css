@@ -1,77 +1,124 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
+
+const skills = [
+  { icon: '</>', title: 'Front-end', text: 'Interfaces responsivas, acessíveis e focadas na experiência do usuário.', tags: ['HTML', 'CSS', 'JavaScript', 'Vue.js', 'Next.js', 'Angular'] },
+  { icon: '{ }', title: 'Back-end', text: 'Aplicações, regras de negócio e integração com serviços e bancos de dados.', tags: ['Elixir', 'Ruby', 'PHP', 'SQL', 'APIs'] },
+  { icon: '>_', title: 'Sistemas & IoT', text: 'Ambientes Linux, automação, protótipos conectados e sensores.', tags: ['Linux', 'Git', 'ESP32', 'Sensores'] },
+]
+
+const projects = [
+  { number: '01', mark: 'bulb', type: 'IoT · Automação', title: 'Lâmpada Inteligente', text: 'Projeto de iluminação inteligente com controle por aplicativo.', tags: ['ESP32', 'Mobile', 'IoT'] },
+  { number: '02', mark: 'knight', type: 'Web · Full stack', title: 'ChessDuel', text: 'Plataforma de xadrez online utilizando Elixir e Vue.js.', tags: ['Elixir', 'Vue.js', 'WebSocket'], status: 'Em desenvolvimento' },
+  { number: '03', mark: 'camera', type: 'IoT · Monitoramento', title: 'Monitoramento Ambiental', text: 'Sistema que verifica condições de ambientes controlados com sensores e ESP32.', tags: ['ESP32', 'Sensores', 'Dados'] },
+]
+
+function ProjectIcon({ name }: { name: string }) {
+  if (name === 'knight') return <span className="knight" aria-hidden="true">♞</span>
+  if (name === 'bulb') return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M8.2 14.5A7 7 0 1 1 15.8 14.5C14.7 15.3 14 16.5 14 18h-4c0-1.5-.7-2.7-1.8-3.5Z" /></svg>
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l1.5-2h7L17 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" /><circle cx="12" cy="13" r="4" /></svg>
+}
+
+function Tags({ items }: { items: string[] }) {
+  return <div className="chips">{items.map(item => <span key={item}>{item}</span>)}</div>
+}
 
 export default function App() {
-  const onContact = () => {
-    window.location.href = 'mailto:seuemail@email.com'
-  }
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [active, setActive] = useState('inicio')
+
+  useEffect(() => {
+    const reveals = document.querySelectorAll<HTMLElement>('.reveal')
+    const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible')
+        revealObserver.unobserve(entry.target)
+      }
+    }), { threshold: .12 })
+    reveals.forEach(element => revealObserver.observe(element))
+
+    const sectionObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target.id)
+    }), { rootMargin: '-35% 0px -55%' })
+    document.querySelectorAll('main section[id]').forEach(section => sectionObserver.observe(section))
+    return () => { revealObserver.disconnect(); sectionObserver.disconnect() }
+  }, [])
+
+  const closeMenu = () => setMenuOpen(false)
 
   return (
     <>
       <header className="header">
-        <nav className="nav">
-          <a href="#" className="logo">Victor Marinho Borges</a>
-          <div className="menu">
-            <a href="#sobre">Sobre</a>
-            <a href="#projetos">Projetos</a>
-            <a href="#contato">Contato</a>
+        <nav className="nav" aria-label="Navegação principal">
+          <a href="#inicio" className="logo" onClick={closeMenu}><span>&lt;</span>Victor<span>/&gt;</span></a>
+          <button className="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span /><span /><span /></button>
+          <div className={`menu ${menuOpen ? 'open' : ''}`}>
+            {[['inicio', 'Início'], ['sobre', 'Sobre'], ['habilidades', 'Habilidades'], ['projetos', 'Projetos'], ['contato', 'Contato']].map(([id, label]) => (
+              <a key={id} href={`#${id}`} className={active === id ? 'active' : ''} onClick={closeMenu}>{label}</a>
+            ))}
           </div>
         </nav>
       </header>
 
       <main>
-        <section className="hero">
-          <div className="hero-text">
-            <p className="small-title">Olá, eu sou</p>
-            <h1>Victor Marinho</h1>
-            <p className="description">
-              Desenvolvedor apaixonado por tecnologia,
-              programação e criação de projetos.
-            </p>
-          </div>
-
-          <div className="hero-image">
-            <img src="/assets/foto.png" alt="Foto de perfil" />
-          </div>
-        </section>
-
-        <section id="sobre" className="section">
-          <h2>Sobre mim</h2>
-          <p>
-            Sou estudante e desenvolvedor interessado em
-            tecnologia, desenvolvimento web e programação.
-          </p>
-        </section>
-
-        <section id="projetos" className="section">
-          <h2>Projetos</h2>
-          <div className="projects">
-            <article className="project">
-              <h3> Lampada Inteligente</h3>
-              <p>Projeto de iluminação inteligente com controle por aplicativo.</p>
-            </article>
-            <article className="project">
-              <h3>ChessDuel</h3>
-              <p>Plataforma de xadrez online utilizando Elixir e Vue.js</p>
-              <br />
-              <p>(Em desenvolvimento)</p>
-            </article>
-            <article className="project">
-              <h3>Sistema de Monitoramento Ambiental</h3>
-              <p>Sistema que checa a condição do ambiente em ambientes controlados com sensores e Esp32.</p>
-            </article>
+        <section id="inicio" className="hero">
+          <div className="hero-grid" aria-hidden="true" />
+          <div className="hero-content wrap">
+            <div className="hero-text reveal">
+              <p className="eyebrow"><span className="prompt">$</span> Olá, eu sou</p>
+              <h1><span className="code-word">const</span> Victor<br /><span className="name-outline">Marinho</span><span className="cursor">_</span></h1>
+              <p className="role">// Desenvolvedor de Software</p>
+              <p className="description">Transformo ideias em experiências digitais funcionais, simples e bem construídas.</p>
+              <div className="hero-actions">
+                <a className="button button-primary" href="#projetos">Ver projetos <span>→</span></a>
+                <a className="button button-secondary" href="#contato">Entrar em contato</a>
+              </div>
+              <div className="socials" aria-label="Redes sociais">
+                <a href="https://github.com/Marinho2005" target="_blank" rel="noreferrer" aria-label="GitHub de Victor Marinho">GH</a><a href="https://www.linkedin.com/in/victor-marinho-8271962b9/" target="_blank" rel="noreferrer" aria-label="LinkedIn de Victor Marinho">IN</a>
+              </div>
+            </div>
+            <div className="hero-visual reveal">
+              <div className="image-shell">
+                <span className="corner corner-tl" /><span className="corner corner-tr" /><span className="corner corner-bl" /><span className="corner corner-br" />
+                <div className="image-label">01 / PROFILE</div>
+                <img src="/assets/foto.png" alt="Victor Marinho" />
+                <div className="status"><i /> disponível para projetos</div>
+              </div>
+              <div className="floating-tag tag-one"><strong>Front-end</strong><small>HTML · CSS · JavaScript</small></div>
+              <div className="floating-tag tag-two"><strong>Back-end</strong><small>Elixir · APIs · Dados</small></div>
+            </div>
           </div>
         </section>
 
-        <section id="contato" className="section contact">
-          <h2>Contato</h2>
-          <p>Entre em contato comigo para conversar sobre projetos.</p>
-          <button id="contactButton" className="button" onClick={onContact}>Entrar em contato</button>
+        <section id="sobre" className="section wrap reveal">
+          <div className="section-heading"><span>01.</span><h2>&lt;Sobre mim /&gt;</h2><i /></div>
+          <div className="about-grid">
+            <div><p className="lead">Sou estudante e desenvolvedor interessado em tecnologia, desenvolvimento web e programação.</p><p>Gosto de entender problemas, experimentar soluções e transformar aprendizado em projetos reais — sempre buscando código mais claro e experiências melhores.</p></div>
+            <div className="code-card">
+              <div className="code-card-top"><span /><span /><span /><small>developer.js</small></div>
+              <pre><code><b>const</b>{` developer = {\n  name: `}<em>'Victor Marinho'</em>{`,\n  focus: `}<em>'Software Development'</em>{`,\n  traits: [\n    `}<em>'curioso'</em>{`, `}<em>'dedicado'</em>{`, `}<em>'criativo'</em>{`\n  ],\n  learning: `}<b>true</b>{`\n};`}</code></pre>
+            </div>
+          </div>
         </section>
+
+        <section id="habilidades" className="section section-muted"><div className="wrap reveal">
+          <div className="section-heading"><span>02.</span><h2>&lt;Habilidades /&gt;</h2><i /></div>
+          <div className="skills-grid">{skills.map(skill => <article className="skill-card" key={skill.title}><div className="skill-icon">{skill.icon}</div><h3>{skill.title}</h3><p>{skill.text}</p><Tags items={skill.tags} /></article>)}</div>
+        </div></section>
+
+        <section id="projetos" className="section wrap reveal">
+          <div className="section-heading"><span>03.</span><h2>&lt;Projetos /&gt;</h2><i /></div>
+          <div className="projects">{projects.map(project => <article className={`project ${project.status ? 'featured' : ''}`} key={project.title}>
+            <div className="project-top"><span>{project.number}</span><span>↗</span></div><div className="project-mark"><ProjectIcon name={project.mark} /></div><p className="project-type">{project.type}</p><h3>{project.title}</h3><p>{project.text}</p>
+            {project.status && <div className="project-status"><i /> {project.status}</div>}<Tags items={project.tags} />
+          </article>)}</div>
+        </section>
+
+        <section id="contato" className="section contact"><div className="wrap reveal">
+          <p className="eyebrow"><span className="prompt">$</span> vamos conversar?</p><h2>Tem uma ideia?<br /><span>Vamos construí-la.</span></h2><p>Estou aberto a novos projetos, colaborações e boas conversas sobre tecnologia.</p><a className="button button-light" href="mailto:vimarinholima@gmail.com">vimarinholima@gmail.com <span>↗</span></a>
+        </div></section>
       </main>
 
-      <footer>
-        <p>© 2026 - Victor Marinho</p>
-      </footer>
+      <footer><div className="wrap"><a href="#inicio" className="logo"><span>&lt;</span>Victor<span>/&gt;</span></a><p>Projetado e desenvolvido por Victor Marinho © 2026</p><a href="#inicio" className="back-top">voltar ao topo ↑</a></div></footer>
     </>
   )
 }
