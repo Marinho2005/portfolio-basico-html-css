@@ -96,11 +96,6 @@ python3 -m http.server --directory portfolio_html 8000
 - **Back-end:** Elixir, Ruby, PHP, SQL, APIs
 - **Sistemas & IoT:** Linux, Git, ESP32, Sensores
 
-## 📸 Screenshot
-
-![Preview](./screenshots/screenshot-hero.png)
-
-> Hero capturado com Playwright (`1280×800` @2x) a partir do `vite preview`.
 
 ## 👤 Autor
 
