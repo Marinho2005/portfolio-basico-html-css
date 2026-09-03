@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { ProjectIcon } from './components/ProjectIcon'
+import { Tags } from './components/Tags'
 
 const skills = [
   { icon: '</>', title: 'Front-end', text: 'Interfaces responsivas, acessíveis e focadas na experiência do usuário.', tags: ['HTML', 'CSS', 'JavaScript', 'Vue.js', 'Next.js', 'Angular'] },
@@ -11,16 +13,6 @@ const projects = [
   { number: '02', mark: 'knight', type: 'Web · Full stack', title: 'ChessDuel', text: 'Plataforma de xadrez online utilizando Elixir e Vue.js.', tags: ['Elixir', 'Vue.js', 'WebSocket'], status: 'Em desenvolvimento' },
   { number: '03', mark: 'camera', type: 'IoT · Monitoramento', title: 'Monitoramento Ambiental', text: 'Sistema que verifica condições de ambientes controlados com sensores e ESP32.', tags: ['ESP32', 'Sensores', 'Dados'] },
 ]
-
-function ProjectIcon({ name }: { name: string }) {
-  if (name === 'knight') return <span className="knight" aria-hidden="true">♞</span>
-  if (name === 'bulb') return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M8.2 14.5A7 7 0 1 1 15.8 14.5C14.7 15.3 14 16.5 14 18h-4c0-1.5-.7-2.7-1.8-3.5Z" /></svg>
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l1.5-2h7L17 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" /><circle cx="12" cy="13" r="4" /></svg>
-}
-
-function Tags({ items }: { items: string[] }) {
-  return <div className="chips">{items.map(item => <span key={item}>{item}</span>)}</div>
-}
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -80,7 +72,7 @@ export default function App() {
               <div className="image-shell">
                 <span className="corner corner-tl" /><span className="corner corner-tr" /><span className="corner corner-bl" /><span className="corner corner-br" />
                 <div className="image-label">01 / PROFILE</div>
-                <img src="/assets/foto.png" alt="Victor Marinho" />
+                <img src="/assets/foto-pb.png" alt="Victor Marinho" />
                 <div className="status"><i /> disponível para projetos</div>
               </div>
               <div className="floating-tag tag-one"><strong>Front-end</strong><small>HTML · CSS · JavaScript</small></div>
